@@ -6,7 +6,6 @@ from config import (
     DEFAULT_BUSINESS_END,
     DEFAULT_DURATION,
     DEFAULT_BUFFER,
-    DEFAULT_MYTIMEZONE
 )
 from slotFinder import find_available_slots
 from calendarClient import get_events
@@ -21,13 +20,6 @@ def parse_args():
         required=True,
         choices=SUPPORTED_TIMEZONES.keys(),
         help="Interviewer's timezone"
-    )
-
-    parser.add_argument(
-        "--my-timezone", "-mtz",
-        choices=SUPPORTED_TIMEZONES.keys(),
-        default=DEFAULT_MYTIMEZONE,
-        help="Your timezone (default: %(default)s)"
     )
 
     parser.add_argument(
@@ -98,13 +90,12 @@ def main():
 
 
     print(f"Timezone:       {args.timezone}")
-    print(f"Your Timezone:  {args.my_timezone}")
     print(f"Duration:       {args.duration} min")
     print(f"Buffer:         {args.buffer} min")
     print(f"Search range:   {args.start} to {args.end}")
     print(f"Business hours: {args.bh_start}:00 - {args.bh_end}:00")
-    events = get_events(args.start, args.end)
-    avalible_timeslot = find_available_slots(events, args.timezone, args.my_timezone, args.start, args.end, args.duration, args.buffer, args.bh_start, args.bh_end)
-    printFormat(avalible_timeslot, args.my_timezone)
+    mytimezone, events = get_events(args.start, args.end)
+    avalible_timeslot = find_available_slots(events, args.timezone, mytimezone, args.start, args.end, args.duration, args.buffer, args.bh_start, args.bh_end)
+    printFormat(avalible_timeslot, mytimezone)
 if __name__ == "__main__":
     main()

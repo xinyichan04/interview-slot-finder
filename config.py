@@ -9,7 +9,6 @@ DEFAULT_DURATION = 60
 DEFAULT_BUFFER = 60
 DEFAULT_SEARCH_DAYS = 14
 
-DEFAULT_MYTIMEZONE = "US Eastern" 
 # Supported timezones: display name -> IANA identifier
 SUPPORTED_TIMEZONES = {
     "US Eastern": "America/New_York",
